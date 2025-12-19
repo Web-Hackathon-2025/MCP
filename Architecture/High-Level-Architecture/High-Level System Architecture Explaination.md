@@ -71,7 +71,7 @@
 
 * **SMS Service**
 
-  * Booking confirmations, reminders, OTPs
+  * Booking confirmations, reminders
 
 * **Email Service**
 
@@ -79,7 +79,7 @@
 
 ---
 
-##### **5\. CDN & Static Assets**
+##### **5\. CDN & Static Assets** (in future)
 
 * Hosts static assets (images, icons, JS bundles)
 
@@ -119,7 +119,7 @@
 
 #### **High-Level Data Flow (Textual)**
 
-1. User accesses Karigar via browser → **Next.js Frontend (CDN)**
+1. User accesses Karigar via browser → **Next.js Frontend**
 
 2. Frontend sends requests → **Load Balancer**
 
@@ -137,11 +137,11 @@
 
 ---
 
-#### **Diagram Tool Recommendation**
+#### **Diagram Tool**
 
 * **Draw.io**
 
-  * Use layered grouping:
+  * Used layered grouping:
 
     * Client Layer
 
@@ -151,5 +151,4 @@
 
     * External Services
 
-  * Keep arrows directional and labeled (e.g., HTTPS, REST, Webhooks)
 

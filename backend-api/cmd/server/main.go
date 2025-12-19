@@ -10,7 +10,10 @@ import (
 	"syscall"
 	"time"
 
+	"karigar-backend/internal/auth/handler"
+	"karigar-backend/internal/auth/service"
 	"karigar-backend/internal/config"
+	"karigar-backend/internal/repository/postgres"
 	"karigar-backend/pkg/database"
 
 	"github.com/gin-gonic/gin"
@@ -48,11 +51,36 @@ func main() {
 		})
 	})
 
-	// API routes will be added here
+	// Initialize repositories
+	userRepo := postgres.NewUserRepository()
+
+	// Initialize services
+	authService := service.NewAuthService(userRepo, cfg)
+
+	// Initialize handlers
+	authHandler := handler.NewAuthHandler(authService)
+
+	// API routes
 	api := router.Group("/api/v1")
 	{
-		// Routes will be registered here
-		_ = api // Placeholder
+		// Auth routes (public)
+		auth := api.Group("/auth")
+		{
+			auth.POST("/register", authHandler.Register)
+			auth.POST("/login", authHandler.Login)
+			auth.POST("/refresh", authHandler.RefreshToken)
+			auth.POST("/verify-email", authHandler.VerifyEmail)
+			auth.POST("/forgot-password", authHandler.ForgotPassword)
+			auth.POST("/reset-password", authHandler.ResetPassword)
+		}
+
+		// Protected routes will be added here
+		// Example:
+		// protected := api.Group("")
+		// protected.Use(middleware.AuthMiddleware(cfg))
+		// {
+		//     protected.GET("/profile", userHandler.GetProfile)
+		// }
 	}
 
 	// Start server

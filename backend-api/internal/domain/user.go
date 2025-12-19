@@ -17,12 +17,17 @@ const (
 
 // User represents a base user in the system
 type User struct {
-	ID        uuid.UUID `json:"id" db:"id"`
-	Email     string    `json:"email" db:"email"`
-	Password  string    `json:"-" db:"password"` // Never return password in JSON
-	Role      UserRole  `json:"role" db:"role"`
-	CreatedAt time.Time `json:"created_at" db:"created_at"`
-	UpdatedAt time.Time `json:"updated_at" db:"updated_at"`
+	ID                uuid.UUID  `json:"id" db:"id"`
+	Email             string     `json:"email" db:"email"`
+	Password          string     `json:"-" db:"password"` // Never return password in JSON
+	Role              UserRole   `json:"role" db:"role"`
+	IsEmailVerified   bool       `json:"is_email_verified" db:"is_email_verified"`
+	EmailVerifyToken  *string    `json:"-" db:"email_verify_token"` // Nullable
+	EmailVerifyExpiry *time.Time `json:"-" db:"email_verify_expiry"` // Nullable
+	PasswordResetToken *string   `json:"-" db:"password_reset_token"` // Nullable
+	PasswordResetExpiry *time.Time `json:"-" db:"password_reset_expiry"` // Nullable
+	CreatedAt         time.Time  `json:"created_at" db:"created_at"`
+	UpdatedAt         time.Time  `json:"updated_at" db:"updated_at"`
 }
 
 // Customer represents a customer user

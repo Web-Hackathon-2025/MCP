@@ -13,6 +13,8 @@ type UserRepository interface {
 	GetByEmail(ctx context.Context, email string) (*domain.User, error)
 	Update(ctx context.Context, user *domain.User) error
 	Delete(ctx context.Context, id string) error
+	GetByEmailVerifyToken(ctx context.Context, token string) (*domain.User, error)
+	GetByPasswordResetToken(ctx context.Context, token string) (*domain.User, error)
 }
 
 // CustomerRepository defines the interface for customer data operations

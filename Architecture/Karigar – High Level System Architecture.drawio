@@ -1,0 +1,71 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36" version="29.2.7">
+  <diagram name="Page-1" id="fOhC-ELzVhbCidgX8zjQ">
+    <mxGraphModel dx="1863" dy="2266" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="ZLNQXGKOrwqP2pmbiW8L-4" parent="0" value="External Services" />
+        <mxCell id="ZLNQXGKOrwqP2pmbiW8L-21" parent="ZLNQXGKOrwqP2pmbiW8L-4" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=3;" value="&lt;div&gt;Payment Service&lt;/div&gt;&lt;div&gt;(Future)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="108" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="ZLNQXGKOrwqP2pmbiW8L-22" parent="ZLNQXGKOrwqP2pmbiW8L-4" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=3;" value="&lt;div&gt;SMS / OTP Service&lt;/div&gt;&lt;div&gt;(Notifications)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="623" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="ZLNQXGKOrwqP2pmbiW8L-23" parent="ZLNQXGKOrwqP2pmbiW8L-4" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=3;" value="&lt;div&gt;Email Service&lt;/div&gt;&lt;div&gt;(Alerts &amp;amp; Updates)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="108" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="ZLNQXGKOrwqP2pmbiW8L-24" edge="1" parent="ZLNQXGKOrwqP2pmbiW8L-4" source="ZLNQXGKOrwqP2pmbiW8L-15" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;" target="ZLNQXGKOrwqP2pmbiW8L-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZLNQXGKOrwqP2pmbiW8L-25" edge="1" parent="ZLNQXGKOrwqP2pmbiW8L-4" source="ZLNQXGKOrwqP2pmbiW8L-15" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;" target="ZLNQXGKOrwqP2pmbiW8L-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZLNQXGKOrwqP2pmbiW8L-26" edge="1" parent="ZLNQXGKOrwqP2pmbiW8L-4" source="ZLNQXGKOrwqP2pmbiW8L-15" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;" target="ZLNQXGKOrwqP2pmbiW8L-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZLNQXGKOrwqP2pmbiW8L-27" edge="1" parent="ZLNQXGKOrwqP2pmbiW8L-4" source="ZLNQXGKOrwqP2pmbiW8L-6" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=3;" target="ZLNQXGKOrwqP2pmbiW8L-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZLNQXGKOrwqP2pmbiW8L-3" parent="0" value="Data Layer" />
+        <mxCell id="ZLNQXGKOrwqP2pmbiW8L-19" edge="1" parent="ZLNQXGKOrwqP2pmbiW8L-3" source="ZLNQXGKOrwqP2pmbiW8L-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;strokeWidth=3;" target="ZLNQXGKOrwqP2pmbiW8L-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZLNQXGKOrwqP2pmbiW8L-18" parent="ZLNQXGKOrwqP2pmbiW8L-3" style="shape=datastore;whiteSpace=wrap;html=1;strokeWidth=3;" value="&lt;div&gt;PostgreSQL (Supabase)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Users &amp;amp; Roles&lt;/div&gt;&lt;div&gt;- Service Providers&lt;/div&gt;&lt;div&gt;- Services &amp;amp; Pricing&lt;/div&gt;&lt;div&gt;- Availability Slots&lt;/div&gt;&lt;div&gt;- Requests &amp;amp; Bookings&lt;/div&gt;&lt;div&gt;- Reviews &amp;amp; Ratings&lt;/div&gt;" vertex="1">
+          <mxGeometry height="240" width="210" x="338" y="730" as="geometry" />
+        </mxCell>
+        <mxCell id="ZLNQXGKOrwqP2pmbiW8L-20" edge="1" parent="ZLNQXGKOrwqP2pmbiW8L-3" source="ZLNQXGKOrwqP2pmbiW8L-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.15;entryY=0.05;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=3;" target="ZLNQXGKOrwqP2pmbiW8L-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZLNQXGKOrwqP2pmbiW8L-2" parent="0" value="Application Layer" />
+        <mxCell id="ZLNQXGKOrwqP2pmbiW8L-15" parent="ZLNQXGKOrwqP2pmbiW8L-2" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=3;" value="&lt;div&gt;Backend API&lt;/div&gt;&lt;div&gt;Go + Gin (REST API)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Auth &amp;amp; RBAC&lt;/div&gt;&lt;div&gt;- Service Requests&lt;/div&gt;&lt;div&gt;- Booking Workflow&lt;/div&gt;&lt;div&gt;- Availability Management&lt;/div&gt;&lt;div&gt;- Review &amp;amp; Rating Logic&lt;/div&gt;" vertex="1">
+          <mxGeometry height="190" width="260" x="288" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="ZLNQXGKOrwqP2pmbiW8L-16" edge="1" parent="ZLNQXGKOrwqP2pmbiW8L-2" source="ZLNQXGKOrwqP2pmbiW8L-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;strokeWidth=3;" target="ZLNQXGKOrwqP2pmbiW8L-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZLNQXGKOrwqP2pmbiW8L-17" edge="1" parent="ZLNQXGKOrwqP2pmbiW8L-2" source="ZLNQXGKOrwqP2pmbiW8L-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.725;entryY=0.013;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=3;" target="ZLNQXGKOrwqP2pmbiW8L-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="1" parent="0" value="Edge / Network Layer" />
+        <mxCell id="ZLNQXGKOrwqP2pmbiW8L-14" edge="1" parent="1" source="ZLNQXGKOrwqP2pmbiW8L-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;strokeWidth=3;" target="ZLNQXGKOrwqP2pmbiW8L-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZLNQXGKOrwqP2pmbiW8L-10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=3;" value="&lt;div&gt;Load Balancer&lt;/div&gt;&lt;div&gt;(Traffic Distribution)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="258" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="ZLNQXGKOrwqP2pmbiW8L-13" parent="1" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;strokeWidth=3;" value="&lt;div&gt;API Gateway (Future)&lt;/div&gt;&lt;div&gt;- Rate Limiting&lt;/div&gt;&lt;div&gt;- Auth&lt;/div&gt;&lt;div&gt;- Logging&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="150" x="438" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="ZLNQXGKOrwqP2pmbiW8L-1" parent="0" value="Client Layer" />
+        <mxCell id="ZLNQXGKOrwqP2pmbiW8L-7" edge="1" parent="ZLNQXGKOrwqP2pmbiW8L-1" source="ZLNQXGKOrwqP2pmbiW8L-5" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;" target="ZLNQXGKOrwqP2pmbiW8L-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZLNQXGKOrwqP2pmbiW8L-5" parent="ZLNQXGKOrwqP2pmbiW8L-1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=3;" value="Users&lt;div&gt;(Customers / Service Providers / Admin)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="230" x="438" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="ZLNQXGKOrwqP2pmbiW8L-6" parent="ZLNQXGKOrwqP2pmbiW8L-1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=3;" value="&lt;div&gt;Frontend Web App&lt;/div&gt;&lt;div&gt;Next.js (SSR + CSR)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="155" x="238" y="110" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

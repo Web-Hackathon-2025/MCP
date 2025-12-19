@@ -1,27 +1,29 @@
+# Dependencies
+node_modules/
+vendor/
+
 # Environment variables
 .env
 .env.local
 .env.*.local
 *.env
 
-# Dependencies
-node_modules/
-vendor/
-
 # Build outputs
 dist/
 build/
+.next/
+out/
 *.exe
 *.exe~
 *.dll
 *.so
 *.dylib
-*.test
-*.out
+server
+karigar-backend
 
 # IDE
-.idea/
 .vscode/
+.idea/
 *.swp
 *.swo
 *~
@@ -30,7 +32,23 @@ Thumbs.db
 
 # Logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 logs/
+
+# Testing
+coverage/
+.nyc_output/
+*.test
+
+# Docker
+.docker/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
 
 # OS
 .DS_Store
@@ -41,21 +59,23 @@ logs/
 ehthumbs.db
 Thumbs.db
 
-# Temporary files
-*.tmp
-*.temp
-.cache/
-
-# Go specific
-go.work
-
-# Next.js
-.next/
-out/
-.vercel
-
 # Database
 *.db
 *.sqlite
 *.sqlite3
 
+# Redis
+dump.rdb
+
+# Go
+go.work
+go.work.sum
+
+# Frontend specific
+frontend-web/.next/
+frontend-web/out/
+frontend-web/public/assets/
+
+# Backend specific
+backend-api/server.exe
+backend-api/*.exe

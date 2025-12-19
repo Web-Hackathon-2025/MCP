@@ -38,11 +38,38 @@ func main() {
 	}
 
 	// Connect to database
-	_, err := database.Connect(&cfg.Database)
+	db, err := database.Connect(&cfg.Database)
 	if err != nil {
 		log.Fatalf("Failed to connect to database: %v", err)
 	}
 	defer database.Close()
+
+	// Run database migrations
+	log.Println("Running database migrations...")
+	if err := database.RunMigrationsFromPath(db); err != nil {
+		log.Printf("ERROR: Failed to run migrations: %v", err)
+		log.Println("Server will continue, but database operations may fail")
+		log.Println("Please ensure migrations are run manually or fix the migration path")
+	} else {
+		log.Println("✓ Database migrations completed successfully")
+	}
+	
+	// Verify users table exists
+	var tableExists bool
+	err = db.QueryRow(`
+		SELECT EXISTS (
+			SELECT FROM information_schema.tables 
+			WHERE table_schema = 'public' 
+			AND table_name = 'users'
+		);
+	`).Scan(&tableExists)
+	if err != nil {
+		log.Printf("Warning: Could not verify users table: %v", err)
+	} else if !tableExists {
+		log.Fatal("ERROR: Users table does not exist! Please run migrations.")
+	} else {
+		log.Println("✓ Users table verified")
+	}
 
 	// Initialize Gin router
 	router := gin.Default()

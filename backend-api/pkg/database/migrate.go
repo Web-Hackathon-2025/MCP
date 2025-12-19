@@ -39,6 +39,12 @@ func RunMigrations(db *sql.DB, migrationsDir string) error {
 
 		// Execute migration
 		if _, err := db.Exec(string(sqlContent)); err != nil {
+			// Check if error is about table already existing (not a fatal error)
+			errStr := err.Error()
+			if strings.Contains(errStr, "already exists") || strings.Contains(errStr, "duplicate") {
+				fmt.Printf("⚠ Migration %s skipped (already applied): %v\n", filename, err)
+				continue
+			}
 			return fmt.Errorf("failed to execute migration %s: %w", filename, err)
 		}
 
@@ -50,18 +56,37 @@ func RunMigrations(db *sql.DB, migrationsDir string) error {
 
 // RunMigrationsFromPath runs migrations from a given directory path
 func RunMigrationsFromPath(db *sql.DB) error {
-	// Get the migrations directory path relative to the package
-	migrationsDir := filepath.Join("pkg", "database", "migrations")
-	
-	// Try to find migrations directory
-	if _, err := os.Stat(migrationsDir); os.IsNotExist(err) {
-		// Try absolute path from project root
-		migrationsDir = filepath.Join(".", "pkg", "database", "migrations")
-		if _, err := os.Stat(migrationsDir); os.IsNotExist(err) {
-			return fmt.Errorf("migrations directory not found")
+	// Get the current working directory
+	wd, err := os.Getwd()
+	if err != nil {
+		return fmt.Errorf("failed to get working directory: %w", err)
+	}
+
+	// Try multiple possible paths for migrations directory
+	// When running from cmd/server/main.go, we need to go up to backend-api root
+	possiblePaths := []string{
+		filepath.Join(wd, "..", "..", "pkg", "database", "migrations"), // From cmd/server
+		filepath.Join(wd, "pkg", "database", "migrations"),             // From backend-api root
+		filepath.Join("pkg", "database", "migrations"),                 // Relative
+		filepath.Join(".", "pkg", "database", "migrations"),            // Current dir
+	}
+
+	var migrationsDir string
+	var found bool
+
+	for _, path := range possiblePaths {
+		absPath, _ := filepath.Abs(path)
+		if _, err := os.Stat(path); err == nil {
+			migrationsDir = path
+			found = true
+			fmt.Printf("Found migrations directory at: %s\n", absPath)
+			break
 		}
+	}
+
+	if !found {
+		return fmt.Errorf("migrations directory not found. Working directory: %s, Tried: %v", wd, possiblePaths)
 	}
 
 	return RunMigrations(db, migrationsDir)
 }
-

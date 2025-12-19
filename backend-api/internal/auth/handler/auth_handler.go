@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -39,14 +40,22 @@ func (h *AuthHandler) Register(c *gin.Context) {
 
 	response, err := h.authService.Register(c.Request.Context(), &req)
 	if err != nil {
+		log.Printf("Registration error: %v", err)
+		log.Printf("Error details: %+v", err)
 		switch err {
 		case service.ErrUserAlreadyExists:
 			c.JSON(http.StatusConflict, gin.H{"error": err.Error()})
 		default:
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to register user"})
+			// Log the actual error for debugging
+			log.Printf("Registration failed with error: %+v", err)
+			// Return detailed error in development, generic in production
+			errorMsg := err.Error()
+			c.JSON(http.StatusInternalServerError, gin.H{"error": errorMsg})
 		}
 		return
 	}
+
+	log.Printf("User registered successfully: %s", req.Email)
 
 	c.JSON(http.StatusCreated, response)
 }

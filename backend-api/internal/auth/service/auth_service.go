@@ -5,6 +5,8 @@ import (
 	"crypto/rand"
 	"encoding/hex"
 	"errors"
+	"fmt"
+	"strings"
 	"time"
 
 	"github.com/google/uuid"
@@ -45,6 +47,16 @@ func (s *AuthService) Register(ctx context.Context, req *dto.RegisterRequest) (*
 	existingUser, err := s.userRepo.GetByEmail(ctx, req.Email)
 	if err == nil && existingUser != nil {
 		return nil, ErrUserAlreadyExists
+	}
+	// If error is not "user not found", it's a real error (like database connection issue)
+	if err != nil {
+		// Check if error is "user not found" (expected when user doesn't exist)
+		// We need to check the error message since we can't import postgres package here
+		errMsg := err.Error()
+		if !strings.Contains(errMsg, "user not found") && !strings.Contains(errMsg, "failed to get user by email") {
+			return nil, fmt.Errorf("failed to check existing user: %w", err)
+		}
+		// If it's "user not found", that's fine - user doesn't exist, we can proceed
 	}
 
 	// Hash password

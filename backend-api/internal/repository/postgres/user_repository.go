@@ -4,11 +4,16 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"fmt"
 	"time"
 
 	"karigar-backend/internal/domain"
 	"karigar-backend/internal/repository"
 	"karigar-backend/pkg/database"
+)
+
+var (
+	ErrUserNotFound = errors.New("user not found")
 )
 
 type userRepository struct {
@@ -41,7 +46,11 @@ func (r *userRepository) Create(ctx context.Context, user *domain.User) error {
 		now,
 	)
 
-	return err
+	if err != nil {
+		return fmt.Errorf("failed to create user: %w", err)
+	}
+
+	return nil
 }
 
 func (r *userRepository) GetByID(ctx context.Context, id string) (*domain.User, error) {
@@ -72,9 +81,9 @@ func (r *userRepository) GetByID(ctx context.Context, id string) (*domain.User, 
 
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			return nil, errors.New("user not found")
+			return nil, ErrUserNotFound
 		}
-		return nil, err
+		return nil, fmt.Errorf("failed to get user by email: %w", err)
 	}
 
 	if emailVerifyToken.Valid {
@@ -121,9 +130,9 @@ func (r *userRepository) GetByEmail(ctx context.Context, email string) (*domain.
 
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			return nil, errors.New("user not found")
+			return nil, ErrUserNotFound
 		}
-		return nil, err
+		return nil, fmt.Errorf("failed to get user by email: %w", err)
 	}
 
 	if emailVerifyToken.Valid {

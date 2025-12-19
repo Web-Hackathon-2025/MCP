@@ -17,9 +17,18 @@ import (
 	"karigar-backend/pkg/database"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	// Load environment variables from .env.local or .env file
+	if err := godotenv.Load(".env.local"); err != nil {
+		// Try .env if .env.local doesn't exist
+		if err2 := godotenv.Load(".env"); err2 != nil {
+			log.Println("No .env file found, using environment variables")
+		}
+	}
+
 	// Load configuration
 	cfg := config.LoadConfig()
 

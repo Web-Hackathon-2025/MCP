@@ -7,31 +7,32 @@ export default function AuthChoicePage() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6 py-12">
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6 py-16">
       <div className="w-full max-w-md space-y-12">
         {/* Logo */}
-        <div className="flex justify-center">
+        <div className="flex justify-center mb-8">
           <Image
             src="/assets/logo.jpeg"
             alt="Karigar"
-            width={100}
-            height={100}
-            className="rounded-[24px] object-cover shadow-md"
+            width={110}
+            height={110}
+            className="rounded-[28px] object-cover shadow-lg"
+            priority
           />
         </div>
 
         {/* Title */}
-        <div className="text-center space-y-3">
-          <h1 className="text-4xl font-light text-black tracking-tight">
+        <div className="text-center space-y-4">
+          <h1 className="text-5xl font-light text-black tracking-tight">
             Choose how to continue
           </h1>
-          <p className="text-base text-gray-600 font-light">
+          <p className="text-lg text-gray-600 font-light">
             Select your preferred sign in method
           </p>
         </div>
 
         {/* Auth Options */}
-        <div className="space-y-4">
+        <div className="space-y-4 pt-6">
           <button
             onClick={() => router.push('/auth/email')}
             className="btn-primary"
@@ -39,7 +40,7 @@ export default function AuthChoicePage() {
             Continue with Email
           </button>
 
-          <div className="relative">
+          <div className="relative py-2">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-200"></div>
             </div>

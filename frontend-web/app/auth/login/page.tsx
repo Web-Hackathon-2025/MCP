@@ -35,32 +35,33 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6 py-12">
-      <div className="w-full max-w-md space-y-10">
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6 py-16">
+      <div className="w-full max-w-md space-y-12">
         {/* Logo */}
-        <div className="flex justify-center">
+        <div className="flex justify-center mb-12">
           <Image
             src="/assets/logo.jpeg"
             alt="Karigar"
-            width={90}
-            height={90}
-            className="rounded-[20px] object-cover shadow-sm"
+            width={100}
+            height={100}
+            className="rounded-[24px] object-cover shadow-lg"
+            priority
           />
         </div>
 
         {/* Title */}
-        <div className="text-center space-y-3">
-          <h1 className="text-4xl font-light text-black tracking-tight">
+        <div className="text-center space-y-4">
+          <h1 className="text-5xl font-light text-black tracking-tight">
             Welcome back
           </h1>
-          <p className="text-base text-gray-600 font-light">
+          <p className="text-lg text-gray-600 font-light">
             Sign in to your account
           </p>
         </div>
 
         {/* Login Form */}
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
+        <form onSubmit={handleSubmit} className="space-y-6 pt-4">
+          <div className="pb-1">
             <input
               type="email"
               value={email}
@@ -72,7 +73,7 @@ export default function LoginPage() {
             />
           </div>
 
-          <div>
+          <div className="pb-1">
             <input
               type="password"
               value={password}
@@ -83,9 +84,13 @@ export default function LoginPage() {
             />
           </div>
 
-          {error && <p className="text-sm text-red-600 font-light">{error}</p>}
+          {error && (
+            <div className="pt-2">
+              <p className="text-sm text-red-600 font-light">{error}</p>
+            </div>
+          )}
 
-          <div className="flex justify-end">
+          <div className="flex justify-end pt-1">
             <button
               type="button"
               onClick={() => router.push('/auth/forgot-password')}
@@ -98,7 +103,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={isLoading}
-            className="btn-primary"
+            className="btn-primary mt-2"
           >
             {isLoading ? 'Signing in...' : 'Continue'}
           </button>

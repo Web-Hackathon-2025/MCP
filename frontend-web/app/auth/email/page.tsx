@@ -52,84 +52,109 @@ export default function EmailAuthPage() {
         name: formData.name,
       });
 
-      if (response.access_token) {
+      console.log('Registration response:', response);
+
+      if (response && response.access_token) {
         localStorage.setItem('access_token', response.access_token);
-        localStorage.setItem('refresh_token', response.refresh_token);
-        router.push('/dashboard');
+        if (response.refresh_token) {
+          localStorage.setItem('refresh_token', response.refresh_token);
+        }
+        // Redirect to home page after successful registration
+        router.push('/');
+      } else {
+        setError('Registration successful but no token received. Please try logging in.');
       }
     } catch (err: any) {
-      setError(
-        err.response?.data?.error || 'Registration failed. Please try again.'
-      );
+      console.error('Registration error:', err);
+      console.error('Error response:', err.response?.data);
+      console.error('Error status:', err.response?.status);
+      
+      let errorMessage = 'Registration failed. Please try again.';
+      if (err.response?.data?.error) {
+        errorMessage = err.response.data.error;
+      } else if (err.message) {
+        errorMessage = err.message;
+      } else if (err.response?.status === 500) {
+        errorMessage = 'Server error. Please check your connection and try again.';
+      } else if (err.response?.status === 400) {
+        errorMessage = 'Invalid input. Please check your information.';
+      }
+      
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6 py-12">
-      <div className="w-full max-w-md space-y-10">
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6 py-16">
+      <div className="w-full max-w-md">
         {/* Logo */}
-        <div className="flex justify-center">
+        <div className="flex justify-center mb-16">
           <Image
             src="/assets/logo.jpeg"
             alt="Karigar"
-            width={90}
-            height={90}
-            className="rounded-[20px] object-cover shadow-sm"
+            width={100}
+            height={100}
+            className="rounded-[24px] object-cover shadow-lg"
+            priority
           />
         </div>
 
-        {step === 'email' ? (
-          <>
-            <div className="text-center space-y-3">
-              <h1 className="text-4xl font-light text-black tracking-tight">
-                Enter your email
-              </h1>
-              <p className="text-base text-gray-600 font-light">
-                We'll send a verification code to this address
-              </p>
-            </div>
-
-            <form onSubmit={handleEmailSubmit} className="space-y-6">
-              <div>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email address"
-                  required
-                  disabled={isLoading}
-                  autoFocus
-                />
-                {error && <p className="mt-3 text-sm text-red-600 font-light">{error}</p>}
+        <div className="space-y-8">
+          {step === 'email' ? (
+            <>
+              <div className="text-center space-y-4">
+                <h1 className="text-5xl font-light text-black tracking-tight">
+                  Enter your email
+                </h1>
+                <p className="text-lg text-gray-600 font-light">
+                  We'll send a verification code to this address
+                </p>
               </div>
 
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="btn-primary"
-              >
-                {isLoading ? 'Sending...' : 'Continue'}
-              </button>
-            </form>
-          </>
-        ) : (
-          <RegistrationForm
-            email={email}
-            onRegister={handleRegister}
-            onBack={() => setStep('email')}
-            isLoading={isLoading}
-            error={error}
-          />
-        )}
+              <form onSubmit={handleEmailSubmit} className="space-y-6 pt-4">
+                <div className="pb-1">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Email address"
+                    required
+                    disabled={isLoading}
+                    autoFocus
+                  />
+                  {error && <p className="mt-4 text-sm text-red-600 font-light">{error}</p>}
+                </div>
 
-        <button
-          onClick={() => router.push('/auth')}
-          className="w-full text-center text-base text-gray-500 font-light hover:text-black transition-colors py-2"
-        >
-          Back
-        </button>
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="btn-primary"
+                >
+                  {isLoading ? 'Sending...' : 'Continue'}
+                </button>
+              </form>
+            </>
+          ) : (
+            <RegistrationForm
+              email={email}
+              onRegister={handleRegister}
+              onBack={() => setStep('email')}
+              isLoading={isLoading}
+              error={error}
+            />
+          )}
+
+          {step === 'email' && (
+            <button
+              onClick={() => router.push('/auth')}
+              className="w-full text-center text-base text-gray-500 font-light hover:text-black transition-colors py-3"
+            >
+              Back
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -187,18 +212,18 @@ function RegistrationForm({
   };
 
   return (
-    <>
-      <div className="text-center space-y-3">
-        <h1 className="text-4xl font-light text-black tracking-tight">
+    <div className="space-y-8">
+      <div className="text-center space-y-4">
+        <h1 className="text-5xl font-light text-black tracking-tight">
           Create your account
         </h1>
-        <p className="text-base text-gray-600 font-light">
+        <p className="text-lg text-gray-600 font-light">
           {email}
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-5">
-        <div>
+      <form onSubmit={handleSubmit} className="space-y-6 pt-2">
+        <div className="pb-1">
           <input
             type="text"
             value={formData.name}
@@ -210,7 +235,7 @@ function RegistrationForm({
           />
         </div>
 
-        <div>
+        <div className="pb-1">
           <input
             type="password"
             value={formData.password}
@@ -223,7 +248,7 @@ function RegistrationForm({
           />
         </div>
 
-        <div>
+        <div className="pb-1">
           <input
             type="password"
             value={formData.confirmPassword}
@@ -236,10 +261,10 @@ function RegistrationForm({
           />
         </div>
 
-        <div className="space-y-4 pt-2">
-          <p className="text-base text-gray-700 font-light">I am a</p>
-          <div className="space-y-3">
-            <label className="flex items-center p-5 border border-gray-300 rounded-xl cursor-pointer hover:bg-gray-50 hover:border-gray-400 transition-all">
+        <div className="space-y-4 pt-6">
+          <p className="text-lg text-gray-700 font-light">I am a</p>
+          <div className="space-y-4">
+            <label className="flex items-center p-6 border border-gray-300 rounded-2xl cursor-pointer hover:bg-gray-50 hover:border-gray-400 transition-all">
               <input
                 type="radio"
                 name="role"
@@ -254,9 +279,9 @@ function RegistrationForm({
                 className="mr-4 w-5 h-5 text-black focus:ring-black"
                 disabled={isLoading}
               />
-              <span className="text-black font-light text-base">Customer</span>
+              <span className="text-black font-light text-lg">Customer</span>
             </label>
-            <label className="flex items-center p-5 border border-gray-300 rounded-xl cursor-pointer hover:bg-gray-50 hover:border-gray-400 transition-all">
+            <label className="flex items-center p-6 border border-gray-300 rounded-2xl cursor-pointer hover:bg-gray-50 hover:border-gray-400 transition-all">
               <input
                 type="radio"
                 name="role"
@@ -271,19 +296,21 @@ function RegistrationForm({
                 className="mr-4 w-5 h-5 text-black focus:ring-black"
                 disabled={isLoading}
               />
-              <span className="text-black font-light text-base">Service Provider</span>
+              <span className="text-black font-light text-lg">Service Provider</span>
             </label>
           </div>
         </div>
 
         {(formError || error) && (
-          <p className="text-sm text-red-600 font-light">{formError || error}</p>
+          <div className="pt-2">
+            <p className="text-sm text-red-600 font-light">{formError || error}</p>
+          </div>
         )}
 
         <button
           type="submit"
           disabled={isLoading}
-          className="btn-primary"
+          className="btn-primary mt-2"
         >
           {isLoading ? 'Creating account...' : 'Create Account'}
         </button>
@@ -291,11 +318,11 @@ function RegistrationForm({
 
       <button
         onClick={onBack}
-        className="w-full text-center text-base text-gray-500 font-light hover:text-black transition-colors py-2"
+        className="w-full text-center text-base text-gray-500 font-light hover:text-black transition-colors py-3 mt-4"
       >
         Back
       </button>
-    </>
+    </div>
   );
 }
 

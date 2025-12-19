@@ -29,15 +29,16 @@ export default function ForgotPasswordPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6 py-12">
-        <div className="w-full max-w-md space-y-10 text-center">
-          <div className="flex justify-center">
+      <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6 py-16">
+        <div className="w-full max-w-md space-y-12 text-center">
+          <div className="flex justify-center mb-8">
             <Image
               src="/assets/logo.jpeg"
               alt="Karigar"
-              width={90}
-              height={90}
-              className="rounded-[20px] object-cover shadow-sm"
+              width={100}
+              height={100}
+              className="rounded-[24px] object-cover shadow-lg"
+              priority
             />
           </div>
           <div className="space-y-4">
@@ -61,29 +62,30 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6 py-12">
-      <div className="w-full max-w-md space-y-10">
-        <div className="flex justify-center">
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6 py-16">
+      <div className="w-full max-w-md space-y-12">
+        <div className="flex justify-center mb-8">
           <Image
             src="/assets/logo.jpeg"
             alt="Karigar"
-            width={90}
-            height={90}
-            className="rounded-[20px] object-cover shadow-sm"
+            width={100}
+            height={100}
+            className="rounded-[24px] object-cover shadow-lg"
+            priority
           />
         </div>
 
-        <div className="text-center space-y-3">
-          <h1 className="text-4xl font-light text-black tracking-tight">
+        <div className="text-center space-y-4">
+          <h1 className="text-5xl font-light text-black tracking-tight">
             Reset password
           </h1>
-          <p className="text-base text-gray-600 font-light">
+          <p className="text-lg text-gray-600 font-light">
             Enter your email to receive reset instructions
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
+        <form onSubmit={handleSubmit} className="space-y-6 pt-4">
+          <div className="pb-1">
             <input
               type="email"
               value={email}
@@ -93,13 +95,13 @@ export default function ForgotPasswordPage() {
               disabled={isLoading}
               autoFocus
             />
-            {error && <p className="mt-3 text-sm text-red-600 font-light">{error}</p>}
+            {error && <div className="pt-2"><p className="text-sm text-red-600 font-light">{error}</p></div>}
           </div>
 
           <button
             type="submit"
             disabled={isLoading}
-            className="btn-primary"
+            className="btn-primary mt-2"
           >
             {isLoading ? 'Sending...' : 'Send Reset Link'}
           </button>

@@ -3,22 +3,22 @@ import Link from 'next/link';
 
 export default function WelcomePage() {
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6 py-12">
-      <div className="w-full max-w-md space-y-16">
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6 py-20">
+      <div className="w-full max-w-md space-y-20">
         {/* Logo */}
-        <div className="flex justify-center animate-fade-in">
-          <Image
+        <div className="flex justify-center animate-fade-in mb-12">
+        <Image
             src="/assets/logo.jpeg"
             alt="Karigar"
-            width={140}
-            height={140}
-            className="rounded-[28px] object-cover shadow-lg"
-            priority
-          />
+            width={120}
+            height={120}
+            className="rounded-[24px] object-cover"
+          priority
+        />
         </div>
 
         {/* Welcome Text */}
-        <div className="text-center space-y-6 animate-fade-in-up">
+        <div className="text-center space-y-6 animate-fade-in-up pt-4">
           <h1 className="text-6xl font-light text-black tracking-tight leading-tight">
             Welcome to Karigar
           </h1>
